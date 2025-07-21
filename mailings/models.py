@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.db import models
 
 
-class Messages(models.Model):
+class Message(models.Model):
     topic = models.CharField(max_length=100, verbose_name='Тема письма')
     content = models.TextField(max_length=500, verbose_name='Содержание письма')
 
@@ -42,8 +42,8 @@ class Mailing(models.Model):
     start_datetime = models.DateTimeField(verbose_name='Дата и время первой отправки')
     end_datetime = models.DateTimeField(verbose_name='Дата и время окончания отправки')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Создана', verbose_name='Статус')
-    message = models.ForeignKey(Messages, on_delete=models.CASCADE, related_name='mailing', verbose_name='Сообщение')
-    recipients = models.ManyToManyField(Recipient, related_name='mailing', verbose_name='Получатели')
+    message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name='mailings', verbose_name='Сообщение')
+    recipients = models.ManyToManyField(Recipient, related_name='mailings', verbose_name='Получатели')
 
 
     def __str__(self):

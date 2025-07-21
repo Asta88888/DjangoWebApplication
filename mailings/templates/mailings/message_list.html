@@ -1,0 +1,24 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}Список сообщений{% endblock %}
+
+{% block content %}
+{% include 'mailings/header.html' %}
+<h2>Список сообщений</h2>
+
+<div class="d-flex flex-wrap gap-4 mt-5">
+    {% for message in object_list %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ message.topic }}</h5>
+            <p class="card-text">{{ message.content}}</p>
+            <div class="mt-auto">
+                <a href="{% url 'mailings:message_detail' message.pk %}" class="btn btn-primary mb-2">Подробнее</a>
+            </div>
+        </div>
+        
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

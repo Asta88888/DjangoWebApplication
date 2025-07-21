@@ -1,0 +1,21 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}Детали рассылки{% endblock %}
+
+{% block content %}
+{% include 'mailings/header.html' %}
+<h2>Детали рассылки</h2>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ object.name }}</h5>
+    <p class="card-text">{{ object.status }}</p>
+      <div class="mt-auto">
+          <a href="{% url 'mailings:mailing_update' mailing.pk %}" class="btn btn-primary mb-2">Внести изменения</a>
+          <a href="{% url 'mailings:mailing_delete' mailing.pk %}" class="btn btn-primary mb-2">Удалить</a>
+      </div>
+    <a href="/" class="btn btn-primary">Вернуться назад</a>
+  </div>
+</div>
+
+{% endblock %}
