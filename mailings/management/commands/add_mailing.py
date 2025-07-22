@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from mailings.models import Mailing, Message
+from django.utils import timezone
 
 
 class Command(BaseCommand):
@@ -28,6 +29,8 @@ class Command(BaseCommand):
         ]
 
         for mailing_data in mailings:
+            mailing_data['start_datetime'] = timezone.now()
+            mailing_data['end_datetime'] = timezone.now() + timezone.timedelta(days=7)
             mailing, created = Mailing.objects.get_or_create(**mailing_data)
             if created:
                 self.stdout.write(self.style.SUCCESS(f'Создана рассылка: {mailing.name}'))
