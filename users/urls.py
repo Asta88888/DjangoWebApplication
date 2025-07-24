@@ -4,7 +4,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from users.views import RegisterView, UserDetailView, UserUpdateView
 
 
-app_name = UsersConfig
+app_name = UsersConfig.name
 
 
 urlpatterns = [
