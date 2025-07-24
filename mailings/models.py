@@ -3,11 +3,13 @@ from django.db import models
 
 
 class Message(models.Model):
+    """Модель для хранения шаблонов сообщений, которые могут быть использованы в рассылках."""
     topic = models.CharField(max_length=100, verbose_name='Тема письма')
     content = models.TextField(max_length=500, verbose_name='Содержание письма')
 
 
     def __str__(self):
+        """Возвращает строковое представление объекта — тему сообщения."""
         return self.topic
 
 
@@ -17,12 +19,14 @@ class Message(models.Model):
 
 
 class Recipient(models.Model):
+    """Модель для хранения информации о получателях рассылки."""
     email = models.EmailField(unique=True, verbose_name='Email')
     full_name = models.CharField(max_length=100, verbose_name='Ф.И.О')
     comment = models.TextField(max_length=500, verbose_name='Комментарий')
 
 
     def __str__(self):
+        """Возвращает строковое представление — имя и email получателя."""
         return f'{self.full_name} - {self.email}'
 
 
@@ -33,6 +37,7 @@ class Recipient(models.Model):
 
 
 class Mailing(models.Model):
+    """Модель для организации рассылки сообщений."""
     STATUS_CHOICES = [
         ('Создана', 'Создана'),
         ('Запушена', 'Запушена'),
@@ -47,6 +52,7 @@ class Mailing(models.Model):
 
 
     def __str__(self):
+        """Возвращает строковое представление — идентификатор, название и статус рассылки."""
         return f'Рассылка {self.id} - {self.name} - {self.status}'
 
 
@@ -57,6 +63,7 @@ class Mailing(models.Model):
 
 
 class MailingAttempt(models.Model):
+    """Модель для отслеживания попыток отправки рассылки."""
     STATUS_CHOICES = [
         ('Успешно', 'Успешно'),
         ('Не успешно', 'Не успешно'),
