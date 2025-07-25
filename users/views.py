@@ -1,5 +1,5 @@
 from django.views.generic import CreateView, DetailView, UpdateView
-from users.forms import UserRegisterForm
+from users.forms import UserRegisterForm, UserUpdateForm
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from users.models import User
@@ -34,7 +34,7 @@ class UserDetailView(DetailView):
     """Представление для отображения информации о текущем пользователе.
     Использует текущего авторизованного пользователя."""
     model = User
-    template_name = 'users/user.html'
+    template_name = 'users/user_detail.html'
     context_object_name = 'user'
 
 
@@ -47,9 +47,9 @@ class UserUpdateView(UpdateView):
     """Представление для редактирования данных текущего пользователя.
     После обновления перенаправляет на страницу профиля."""
     model = User
-    form_class = UserRegisterForm
+    form_class = UserUpdateForm
     template_name = 'users/user_update.html'
-    success_url = reverse_lazy('users:user')
+    success_url = reverse_lazy('users:user_detail')
 
 
     def get_object(self):

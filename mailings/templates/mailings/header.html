@@ -6,6 +6,7 @@
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailings:mailing_list' %}">Список рассылок</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailings:message_list' %}">Список сообщений</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailings:recipient_list' %}">Список получателей</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'users:user_detail' %}">Профиль</a>
         {% if user.is_authenticated %}
         <form method="post" action="{% url 'users:logout' %}" style="display: inline">
             {% csrf_token %}
