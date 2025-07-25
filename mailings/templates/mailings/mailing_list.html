@@ -5,7 +5,11 @@
 {% block content %}
 {% include 'mailings/header.html' %}
 <h2>Список рассылок</h2>
-
+<div class="container">
+    <div class="mt-5" >
+        <a href="{% url 'mailings:mailing_create' %}" class="btn btn-primary mb-5">Создать новую рассылку</a>
+    </div>
+</div>
 <div class="d-flex flex-wrap gap-4 mt-5">
     {% for mailing in object_list %}
     <div class="card" style="width: 18rem;">

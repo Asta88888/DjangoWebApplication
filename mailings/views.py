@@ -31,7 +31,6 @@ class MailingUpdateView(UpdateView):
 class MailingDeleteView(DeleteView):
     """Представление для удаления рассылки."""
     model = Mailing
-    form_class = MailingForm
     success_url = reverse_lazy('mailings:mailing_list')
 
 
@@ -62,7 +61,6 @@ class RecipientUpdateView(UpdateView):
 class RecipientDeleteView(DeleteView):
     """Представление для удаления получателя."""
     model = Recipient
-    form_class = RecipientForm
     success_url = reverse_lazy('mailings:recipient_list')
 
 
@@ -93,5 +91,4 @@ class MessageUpdateView(UpdateView):
 class MessageDeleteView(DeleteView):
     """Представление для удаления сообщения."""
     model = Message
-    form_class = MessageForm
     success_url = reverse_lazy('mailings:message_list')

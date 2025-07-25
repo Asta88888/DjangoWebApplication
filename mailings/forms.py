@@ -3,16 +3,18 @@ from mailings.models import Recipient, Mailing, Message
 
 
 class MailingForm(ModelForm):
+    """Форма для модели Mailing. Позволяет создавать и редактировать рассылки."""
     class Meta:
         model = Mailing
         fields = "__all__"
 
 
     def __init__(self, *args, **kwargs):
+        """Инициализация формы и обновление атрибутов виджетов."""
         super(MailingForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({
             'class': 'form-control',
-            'placeholders': 'Введите название рассылки'
+            'placeholder': 'Введите название рассылки'
         })
         self.fields['status'].widget.attrs.update({
             'class': 'form-control'
@@ -26,39 +28,43 @@ class MailingForm(ModelForm):
 
 
 class RecipientForm(ModelForm):
+    """Форма для модели Recipient. Позволяет создавать и редактировать получателей."""
     class Meta:
         model = Recipient
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
-        super(RecipientForm).__init__(*args, **kwargs)
+        """Инициализация формы и обновление атрибутов виджетов."""
+        super().__init__(*args, **kwargs)
         self.fields['email'].widget.attrs.update({
             'class': 'form-control',
-            'placeholders': 'Введите email получателя'
+            'placeholder': 'Введите email получателя'
         })
         self.fields['full_name'].widget.attrs.update({
             'class': 'form-control',
-            'placeholders': 'Введите Ф.И.О получателя'
+            'placeholder': 'Введите Ф.И.О получателя'
         })
         self.fields['comment'].widget.attrs.update({
             'class': 'form-control',
-            'placeholders': 'Введите комментарий'
+            'placeholder': 'Введите комментарий'
         })
 
 
 class MessageForm(ModelForm):
+    """Форма для модели Message. Позволяет создавать и редактировать сообщения."""
     class Meta:
         model = Message
         fields = "__all__"
 
 
     def __init__(self, *args, **kwargs):
-        super(MessageForm).__init__(*args, **kwargs)
+        """Инициализация формы и обновление атрибутов виджетов."""
+        super().__init__(*args, **kwargs)
         self.fields['topic'].widget.attrs.update({
             'class': 'form-control',
-            'placeholders': 'Введите название сообщения'
+            'placeholder': 'Введите название сообщения'
         })
         self.fields['content'].widget.attrs.update({
             'class': 'form-control',
-            'placeholders': 'Введите содержание сообщения'
+            'placeholder': 'Введите содержание сообщения'
         })

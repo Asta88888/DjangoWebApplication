@@ -12,7 +12,7 @@
                 <div class="card-body">
                     {% csrf_token %}
                 </div>
-                <p class="card-text">Вы действительно хотите удалить получателя?{{object.name}}</p>
+                <p class="card-text">Вы действительно хотите удалить получателя? {{object.name}}</p>
                 <button type="submit" class="btn btn-primary mb-2">Удалить</button>
                 <a href="/" class="btn btn-primary mb-2">Отменить</a>
             </form>
