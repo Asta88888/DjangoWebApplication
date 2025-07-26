@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 from mailings.models import Mailing, Message, Recipient
@@ -92,3 +93,17 @@ class MessageDeleteView(DeleteView):
     """Представление для удаления сообщения."""
     model = Message
     success_url = reverse_lazy('mailings:message_list')
+
+
+def main_page(request):
+    """Обрабатывает запрос к главной странице сайта. Собирает статистику по: количеству всех рассылок, количеству активных рассылок (со статусом 'Запущена'),
+    количеству уникальных получателей. Передает эти данные в шаблон для отображения. Возвращает: HttpResponse с шаблоном 'main.html' с контекстом."""
+    total_mailings = Mailing.objects.count()
+    active_mailings = Mailing.objects.filter(status='Запущена').count()
+    total_recipients = Recipient.objects.count()
+    context = {
+        'total_mailings': total_mailings,
+        'active_mailings': active_mailings,
+        'total_recipients': total_recipients,
+    }
+    return render(request, 'mailings/main.html', context)
