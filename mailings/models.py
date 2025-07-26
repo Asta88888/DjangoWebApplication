@@ -74,6 +74,11 @@ class MailingAttempt(models.Model):
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, related_name='attempts', verbose_name='Рассылка')
 
 
+    def __str__(self):
+        """Возвращает строковое представление — название и дату и время попытки рассылки."""
+        return f" Попытка рассылки {self.mailing.name} в {self.attempt_datetime}"
+
+
     class Meta:
         verbose_name = 'Попытка рассылки'
         verbose_name_plural = 'Попытки рассылки'
