@@ -11,6 +11,10 @@
     <h5 class="card-title">{{ object.name }}</h5>
     <p class="card-text">{{ object.status }}</p>
       <div class="mt-auto">
+          <form method="post" action="{% url 'mailings:send_mailings' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary mb-2" >Отправить рассылку</button>
+          </form>
           <a href="{% url 'mailings:mailing_update' mailing.pk %}" class="btn btn-primary mb-2">Внести изменения</a>
           <a href="{% url 'mailings:mailing_delete' mailing.pk %}" class="btn btn-primary mb-2">Удалить</a>
       </div>

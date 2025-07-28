@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 from mailings.models import Mailing, Message, Recipient
@@ -107,3 +108,12 @@ def main_page(request):
         'total_recipients': total_recipients,
     }
     return render(request, 'mailings/main.html', context)
+
+
+def send_mailings(request):
+    from mailings.management.commands.send_message import Command as SendMailCommand
+    command = SendMailCommand()
+    command.handle()
+
+    messages.success(request, "Рассылка запущена.")
+    return redirect('mailings:mailing_list')
