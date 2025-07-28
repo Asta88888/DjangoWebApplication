@@ -1,6 +1,6 @@
 {% extends 'mailings/base.html' %}
 
-{% block title %}Удаление сообщения{% endblock %}
+{% block title %}Удаление пользователя{% endblock %}
 
 {% block content %}
 {% include 'mailings/header.html' %}
@@ -12,7 +12,7 @@
                 <div class="card-body">
                     {% csrf_token %}
                 </div>
-                <p class="card-text">Вы действительно хотите удалить сообщение? {{object.name}}</p>
+                <p class="card-text">Вы действительно хотите удалить пользователя? {{object.email}} </p>
                 <button type="submit" class="btn btn-primary mb-2">Удалить</button>
                 <a href="/" class="btn btn-primary mb-2">Отменить</a>
             </form>

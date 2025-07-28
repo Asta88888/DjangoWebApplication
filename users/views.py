@@ -1,7 +1,7 @@
 import secrets
 
 from django.shortcuts import get_object_or_404, redirect, reverse
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserRegisterForm, UserUpdateForm
@@ -52,6 +52,21 @@ def email_verification(request, token):
     user.is_active = True
     user.save()
     return redirect(reverse("users:login"))
+
+
+class UserListView(ListView):
+    model = User
+    template_name = 'users/user_list.html'
+    context_object_name = 'users'
+
+
+    def get_object(self):
+        return self.request.user
+
+
+class UserDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('users:user_list')
 
 
 class UserDetailView(DetailView):
