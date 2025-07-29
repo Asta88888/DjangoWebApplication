@@ -1,11 +1,13 @@
 from django.utils import timezone
 from django.db import models
+from users.models import User
 
 
 class Message(models.Model):
     """Модель для хранения шаблонов сообщений, которые могут быть использованы в рассылках."""
     topic = models.CharField(max_length=100, verbose_name='Тема письма')
     content = models.TextField(max_length=500, verbose_name='Содержание письма')
+    owner = models.ForeignKey(User, verbose_name='Владелец', blank=True, null=True, on_delete=models.SET_NULL)
 
 
     def __str__(self):
@@ -23,6 +25,7 @@ class Recipient(models.Model):
     email = models.EmailField(unique=True, verbose_name='Email')
     full_name = models.CharField(max_length=100, verbose_name='Ф.И.О')
     comment = models.TextField(max_length=500, verbose_name='Комментарий')
+    owner = models.ForeignKey(User, verbose_name='Владелец', blank=True, null=True, on_delete=models.SET_NULL)
 
 
     def __str__(self):
@@ -49,6 +52,7 @@ class Mailing(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Создана', verbose_name='Статус')
     message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name='mailings', verbose_name='Сообщение')
     recipients = models.ManyToManyField(Recipient, related_name='mailings', verbose_name='Получатели')
+    owner = models.ForeignKey(User, verbose_name='Владелец', blank=True, null=True, on_delete=models.SET_NULL)
 
 
     def __str__(self):

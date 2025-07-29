@@ -6,7 +6,7 @@ class MailingForm(ModelForm):
     """Форма для модели Mailing. Позволяет создавать и редактировать рассылки."""
     class Meta:
         model = Mailing
-        fields = "__all__"
+        exclude = ('owner',)
 
 
     def __init__(self, *args, **kwargs):
@@ -31,7 +31,8 @@ class RecipientForm(ModelForm):
     """Форма для модели Recipient. Позволяет создавать и редактировать получателей."""
     class Meta:
         model = Recipient
-        fields = "__all__"
+        exclude = ('owner',)
+
 
     def __init__(self, *args, **kwargs):
         """Инициализация формы и обновление атрибутов виджетов."""
@@ -54,7 +55,7 @@ class MessageForm(ModelForm):
     """Форма для модели Message. Позволяет создавать и редактировать сообщения."""
     class Meta:
         model = Message
-        fields = "__all__"
+        exclude = ('owner',)
 
 
     def __init__(self, *args, **kwargs):

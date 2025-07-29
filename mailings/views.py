@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -6,91 +7,115 @@ from mailings.models import Mailing, Message, Recipient
 from mailings.forms import MailingForm, RecipientForm, MessageForm
 
 
-class MailingListView(ListView):
+class MailingListView(LoginRequiredMixin, ListView):
     """Представление для отображения списка всех рассылок."""
     model = Mailing
 
 
-class MailingDetailView(DetailView):
+class MailingDetailView(LoginRequiredMixin, DetailView):
     """Представление для отображения деталей конкретной рассылки."""
     model = Mailing
 
 
-class MailingCreateView(CreateView):
+class MailingCreateView(LoginRequiredMixin, CreateView):
     """Представление для создания новой рассылки."""
     model = Mailing
     form_class = MailingForm
     success_url = reverse_lazy('mailings:mailing_list')
+    
+    
+    def form_valid(self, form):
+        mailing = form.save()
+        user = self.request.user
+        mailing.owner = user
+        mailing.save()
+        return super().form_valid(form)
 
 
-class MailingUpdateView(UpdateView):
+class MailingUpdateView(LoginRequiredMixin, UpdateView):
     """Представление для редактирования существующей рассылки."""
     model = Mailing
     form_class = MailingForm
     success_url = reverse_lazy('mailings:mailing_list')
 
 
-class MailingDeleteView(DeleteView):
+class MailingDeleteView(LoginRequiredMixin, DeleteView):
     """Представление для удаления рассылки."""
     model = Mailing
     success_url = reverse_lazy('mailings:mailing_list')
 
 
-class RecipientListView(ListView):
+class RecipientListView(LoginRequiredMixin, ListView):
     """Представление для отображения списка всех получателей."""
     model = Recipient
 
 
-class RecipientDetailView(DetailView):
+class RecipientDetailView(LoginRequiredMixin, DetailView):
     """Представление для отображения деталей конкретного получателя."""
     model = Recipient
 
 
-class RecipientCreateView(CreateView):
+class RecipientCreateView(LoginRequiredMixin, CreateView):
     """Представление для добавления нового получателя."""
     model = Recipient
     form_class = RecipientForm
     success_url = reverse_lazy('mailings:recipient_list')
 
 
-class RecipientUpdateView(UpdateView):
+    def form_valid(self, form):
+        recipient = form.save()
+        user = self.request.user
+        recipient.owner = user
+        recipient.save()
+        return super().form_valid(form)
+
+
+class RecipientUpdateView(LoginRequiredMixin, UpdateView):
     """Представление для редактирования информации о получателе."""
     model = Recipient
     form_class = RecipientForm
     success_url = reverse_lazy('mailings:recipient_list')
 
 
-class RecipientDeleteView(DeleteView):
+class RecipientDeleteView(LoginRequiredMixin, DeleteView):
     """Представление для удаления получателя."""
     model = Recipient
     success_url = reverse_lazy('mailings:recipient_list')
 
 
-class MessageListView(ListView):
+class MessageListView(LoginRequiredMixin, ListView):
     """Представление для отображения списка сообщений."""
     model = Message
 
 
-class MessageDetailView(DetailView):
+class MessageDetailView(LoginRequiredMixin, DetailView):
     """Представление для просмотра деталей сообщения."""
     model = Message
 
 
-class MessageCreateView(CreateView):
+class MessageCreateView(LoginRequiredMixin, CreateView):
     """Представление для создания нового сообщения."""
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailings:message_list')
 
 
-class MessageUpdateView(UpdateView):
+    def form_valid(self, form):
+        message = form.save()
+        user = self.request.user
+        message.owner = user
+        message.save()
+        return super().form_valid(form)
+
+
+class MessageUpdateView(LoginRequiredMixin, UpdateView):
     """Представление для редактирования сообщения."""
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailings:message_list')
 
 
-class MessageDeleteView(DeleteView):
+class MessageDeleteView(LoginRequiredMixin, DeleteView):
     """Представление для удаления сообщения."""
     model = Message
     success_url = reverse_lazy('mailings:message_list')
