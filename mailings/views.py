@@ -6,8 +6,11 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 from mailings.models import Mailing, Message, Recipient
 from mailings.forms import MailingForm, RecipientForm, MessageForm
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 
+@method_decorator(cache_page(60*10), name='dispatch')
 class MailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """Представление для отображения списка всех рассылок."""
     model = Mailing
@@ -73,6 +76,7 @@ class MailingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
         return obj
 
 
+@method_decorator(cache_page(60*10), name='dispatch')
 class RecipientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """Представление для отображения списка всех получателей."""
     model = Recipient
@@ -138,6 +142,7 @@ class RecipientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteVie
         return obj
 
 
+@method_decorator(cache_page(60*10), name='dispatch')
 class MessageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """Представление для отображения списка сообщений."""
     model = Message
