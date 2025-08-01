@@ -17,7 +17,6 @@ class RegisterView(CreateView):
     form_class = UserRegisterForm
     success_url = reverse_lazy('users:login')
 
-
     def form_valid(self, form):
         """Обрабатывает валидную форму регистрации.
         Сохраняет пользователя и отправляет приветственное письмо после того как пользователь подтвердил почту."""
@@ -36,7 +35,6 @@ class RegisterView(CreateView):
         )
         self.send_welcome_email(user.email)
         return super().form_valid(form)
-
 
     def send_welcome_email(self, user_email):
         """Отправляет приветственное письмо на указанный email."""
@@ -59,7 +57,6 @@ class UserListView(ListView):
     template_name = 'users/user_list.html'
     context_object_name = 'users'
 
-
     def get_object(self):
         return self.request.user
 
@@ -76,7 +73,6 @@ class UserDetailView(DetailView):
     template_name = 'users/user_detail.html'
     context_object_name = 'user'
 
-
     def get_object(self):
         """Возвращает текущего авторизованного пользователя."""
         return self.request.user
@@ -89,7 +85,6 @@ class UserUpdateView(UpdateView):
     form_class = UserUpdateForm
     template_name = 'users/user_update.html'
     success_url = reverse_lazy('users:user_detail')
-
 
     def get_object(self):
         """Возвращает текущего авторизованного пользователя для редактирования."""

@@ -9,11 +9,9 @@ class Message(models.Model):
     content = models.TextField(max_length=500, verbose_name='Содержание письма')
     owner = models.ForeignKey(User, verbose_name='Владелец', blank=True, null=True, on_delete=models.SET_NULL)
 
-
     def __str__(self):
         """Возвращает строковое представление объекта — тему сообщения."""
         return self.topic
-
 
     class Meta:
         verbose_name = 'Сообщение'
@@ -27,16 +25,13 @@ class Recipient(models.Model):
     comment = models.TextField(max_length=500, verbose_name='Комментарий')
     owner = models.ForeignKey(User, verbose_name='Владелец', blank=True, null=True, on_delete=models.SET_NULL)
 
-
     def __str__(self):
         """Возвращает строковое представление — имя и email получателя."""
         return f'{self.full_name} - {self.email}'
 
-
     class Meta:
         verbose_name = 'Получатель рассылки'
         verbose_name_plural = 'Получатели рассылки'
-
 
 
 class Mailing(models.Model):
@@ -54,11 +49,9 @@ class Mailing(models.Model):
     recipients = models.ManyToManyField(Recipient, related_name='mailings', verbose_name='Получатели')
     owner = models.ForeignKey(User, verbose_name='Владелец', blank=True, null=True, on_delete=models.SET_NULL)
 
-
     def __str__(self):
         """Возвращает строковое представление — идентификатор, название и статус рассылки."""
         return f'Рассылка {self.id} - {self.name} - {self.status}'
-
 
     class Meta:
         verbose_name = 'Рассылка'
@@ -77,11 +70,9 @@ class MailingAttempt(models.Model):
     server_response = models.TextField(blank=True, null=True, verbose_name='Ответ сервера')
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, related_name='attempts', verbose_name='Рассылка')
 
-
     def __str__(self):
         """Возвращает строковое представление — название и дату и время попытки рассылки."""
         return f" Попытка рассылки {self.mailing.name} в {self.attempt_datetime}"
-
 
     class Meta:
         verbose_name = 'Попытка рассылки'

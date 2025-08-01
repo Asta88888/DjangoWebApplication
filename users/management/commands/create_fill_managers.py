@@ -6,7 +6,6 @@ from users.models import User
 class Command(BaseCommand):
     help = 'Создает группу менеджеры и добавляет пользователей'
 
-
     def handle(self, *args, **kwargs):
         group_name = 'Менеджеры'
         group, created = Group.objects.get_or_create(name=group_name)

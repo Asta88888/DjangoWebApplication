@@ -8,7 +8,6 @@ from config.settings import EMAIL_HOST_USER
 class Command(BaseCommand):
     help = 'Отправка рассылки'
 
-
     def handle(self, *args, **options):
         active_statuses = ['Создана', 'Запушена']
         mailings = Mailing.objects.filter(status__in=active_statuses)

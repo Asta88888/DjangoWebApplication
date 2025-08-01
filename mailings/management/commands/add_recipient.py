@@ -5,7 +5,6 @@ from mailings.models import Recipient
 class Command(BaseCommand):
     help = 'Добавление получателей в базу данных'
 
-
     def handle(self, *args, **options):
         recipients_data = [
             {'email': 'asta.soul@yandex.ru', 'full_name': 'Asta Soul', 'comment': 'Первый получатель'},

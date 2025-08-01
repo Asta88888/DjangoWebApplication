@@ -8,7 +8,6 @@ class MailingForm(ModelForm):
         model = Mailing
         exclude = ('owner',)
 
-
     def __init__(self, *args, **kwargs):
         """Инициализация формы и обновление атрибутов виджетов."""
         super(MailingForm, self).__init__(*args, **kwargs)
@@ -33,7 +32,6 @@ class RecipientForm(ModelForm):
         model = Recipient
         exclude = ('owner',)
 
-
     def __init__(self, *args, **kwargs):
         """Инициализация формы и обновление атрибутов виджетов."""
         super().__init__(*args, **kwargs)
@@ -56,7 +54,6 @@ class MessageForm(ModelForm):
     class Meta:
         model = Message
         exclude = ('owner',)
-
 
     def __init__(self, *args, **kwargs):
         """Инициализация формы и обновление атрибутов виджетов."""

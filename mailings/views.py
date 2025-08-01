@@ -13,7 +13,6 @@ class MailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Mailing
     permission_required = 'mailings.list_mailing'
 
-
     def get_queryset(self):
         if self.request.user.has_perm('mailings.list_mailing'):
             return Mailing.objects.all()
@@ -24,7 +23,6 @@ class MailingDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
     """Представление для отображения деталей конкретной рассылки."""
     model = Mailing
     permission_required = 'mailings.detail_mailing'
-
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -39,8 +37,7 @@ class MailingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     form_class = MailingForm
     success_url = reverse_lazy('mailings:mailing_list')
     permission_required = 'mailings.create_mailing'
-    
-    
+
     def form_valid(self, form):
         mailing = form.save()
         user = self.request.user
@@ -55,7 +52,6 @@ class MailingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     form_class = MailingForm
     success_url = reverse_lazy('mailings:mailing_list')
     permission_required = 'mailings.change_mailing'
-
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -82,7 +78,6 @@ class RecipientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Recipient
     permission_required = 'mailings.list_recipient'
 
-
     def get_queryset(self):
         if self.request.user.has_perm('mailings.list_recipient'):
             return Recipient.objects.all()
@@ -93,7 +88,6 @@ class RecipientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVie
     """Представление для отображения деталей конкретного получателя."""
     model = Recipient
     permission_required = 'mailings.detail_recipient'
-
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -108,7 +102,6 @@ class RecipientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateVie
     form_class = RecipientForm
     success_url = reverse_lazy('mailings:recipient_list')
     permission_required = 'mailings.create_recipient'
-
 
     def form_valid(self, form):
         recipient = form.save()
@@ -150,19 +143,16 @@ class MessageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Message
     permission_required = 'mailings.list_message'
 
-
     def get_queryset(self):
         if self.request.user.has_perm('mailings.list_message'):
             return Message.objects.all()
         return Message.objects.filter(owner=self.request.user)
 
 
-
 class MessageDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """Представление для просмотра деталей сообщения."""
     model = Message
     permission_required = 'mailings.detail_message'
-
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -176,7 +166,6 @@ class MessageCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     model = Message
     form_class = MessageForm
     success_url = reverse_lazy('mailings:message_list')
-
 
     def form_valid(self, form):
         message = form.save()
@@ -214,8 +203,10 @@ class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
 
 
 def main_page(request):
-    """Обрабатывает запрос к главной странице сайта. Собирает статистику по: количеству всех рассылок, количеству активных рассылок (со статусом 'Запущена'),
-    количеству уникальных получателей. Передает эти данные в шаблон для отображения. Возвращает: HttpResponse с шаблоном 'main.html' с контекстом."""
+    """Обрабатывает запрос к главной странице сайта. Собирает статистику по: количеству всех рассылок,
+    количеству активных рассылок (со статусом 'Запущена'),
+    количеству уникальных получателей. Передает эти данные в шаблон для отображения.
+    Возвращает: HttpResponse с шаблоном 'main.html' с контекстом."""
     total_mailings = Mailing.objects.count()
     active_mailings = Mailing.objects.filter(status='Запущена').count()
     total_recipients = Recipient.objects.count()
