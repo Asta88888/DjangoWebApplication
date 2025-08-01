@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 
 
 @method_decorator(cache_page(60*10), name='dispatch')
-class MailingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class MailingListView(LoginRequiredMixin, ListView):
     """Представление для отображения списка всех рассылок."""
     model = Mailing
     permission_required = 'mailings.list_mailing'
@@ -77,7 +77,7 @@ class MailingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
 
 
 @method_decorator(cache_page(60*10), name='dispatch')
-class RecipientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class RecipientListView(LoginRequiredMixin, ListView):
     """Представление для отображения списка всех получателей."""
     model = Recipient
     permission_required = 'mailings.list_recipient'
@@ -143,7 +143,7 @@ class RecipientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteVie
 
 
 @method_decorator(cache_page(60*10), name='dispatch')
-class MessageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class MessageListView(LoginRequiredMixin, ListView):
     """Представление для отображения списка сообщений."""
     model = Message
     permission_required = 'mailings.list_message'
