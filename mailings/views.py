@@ -34,7 +34,7 @@ class MailingDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
         return obj
 
 
-class MailingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class MailingCreateView(LoginRequiredMixin, CreateView):
     """Представление для создания новой рассылки."""
     model = Mailing
     form_class = MailingForm
@@ -100,7 +100,7 @@ class RecipientDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailVie
         return obj
 
 
-class RecipientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class RecipientCreateView(LoginRequiredMixin, CreateView):
     """Представление для добавления нового получателя."""
     model = Recipient
     form_class = RecipientForm
@@ -166,7 +166,7 @@ class MessageDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
         return obj
 
 
-class MessageCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class MessageCreateView(LoginRequiredMixin, CreateView):
     """Представление для создания нового сообщения."""
     model = Message
     form_class = MessageForm
