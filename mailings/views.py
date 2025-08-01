@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
-from mailings.models import Mailing, Message, Recipient
+from mailings.models import Mailing, Message, Recipient, MailingAttempt
 from mailings.forms import MailingForm, RecipientForm, MessageForm
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
@@ -205,6 +205,12 @@ class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
         if obj.owner != self.request.user:
             raise PermissionDenied
         return obj
+
+
+class MailingAttemptListView(LoginRequiredMixin, ListView):
+    model = MailingAttempt
+    template_name = 'mailings/mailing_attempt.html'
+    context_object_name = 'mailing_attempt'
 
 
 def main_page(request):

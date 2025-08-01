@@ -8,7 +8,7 @@
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailings:message_list' %}">Список сообщений</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailings:recipient_list' %}">Список получателей</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'users:user_list' %}">Список пользователей</a>
-        <a class="p-2 btn btn-outline-primary" href="#">Попытка рассылки</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'mailings:mailing_attempt' %}">Попытка рассылки</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'users:user_detail' %}">Профиль</a>
         {% else %}
         {% endif %}

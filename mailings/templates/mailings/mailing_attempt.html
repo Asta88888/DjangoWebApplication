@@ -1,0 +1,45 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}Статистика попыток рассылок{% endblock %}
+
+{% block content %}
+{% include 'mailings/header.html' %}
+
+<h2>Статистика попыток рассылок</h2>
+
+<div class="container mt-4">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Рассылка</th>
+          <th>Дата и время попытки</th>
+          <th>Статус</th>
+          <th>Ответ почтового сервера</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for attempt in object_list %}
+        <tr>
+          <td>{{ attempt.mailing.name }}</td>
+          <td>{{ attempt.attempt_datetime|date:"d.m.Y H:i" }}</td>
+          <td>
+            {% if attempt.status == 'Успешно' %}
+              <span class="badge bg-primary">Успешно</span>
+            {% else %}
+              <span class="badge bg-danger">Не успешно</span>
+            {% endif %}
+          </td>
+          <td>{{ attempt.server_response }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="text-center">Пока нет данных о попытках рассылок.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
