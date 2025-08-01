@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
@@ -213,14 +214,16 @@ class MailingAttemptListView(LoginRequiredMixin, ListView):
     context_object_name = 'mailing_attempt'
 
 
+@login_required
 def main_page(request):
     """Обрабатывает запрос к главной странице сайта. Собирает статистику по: количеству всех рассылок,
     количеству активных рассылок (со статусом 'Запущена'),
     количеству уникальных получателей. Передает эти данные в шаблон для отображения.
     Возвращает: HttpResponse с шаблоном 'main.html' с контекстом."""
-    total_mailings = Mailing.objects.count()
-    active_mailings = Mailing.objects.filter(status='Запущена').count()
-    total_recipients = Recipient.objects.count()
+    user = request.user
+    total_mailings = Mailing.objects.filter(owner=user).count()
+    active_mailings = Mailing.objects.filter(owner=user, status='Запущена').count()
+    total_recipients = Recipient.objects.filter(owner=user).count()
     context = {
         'total_mailings': total_mailings,
         'active_mailings': active_mailings,
