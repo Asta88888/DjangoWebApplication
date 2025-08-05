@@ -1,0 +1,22 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}Список пользователей{% endblock %}
+
+{% block content %}
+{% include 'mailings/header.html' %}
+
+<h2>Список пользователей</h2>
+<div class="d-flex flex-wrap gap-4 mt-5">
+    {% for user in object_list %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ user.email }}</h5>
+            <p class="card-text">{{ user.full_name }}</p>
+            {% if is_manager %}
+                <a href="{% url 'users:user_delete' user.pk %}" class="btn btn-primary mb-2">Удалить</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

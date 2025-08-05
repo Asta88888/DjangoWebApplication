@@ -1,0 +1,28 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+{% include 'mailings/header.html' %}
+<h2>Профиль пользователя</h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    {% if object %}
+                    Сохранить
+                    {% else %}
+                    Создать
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+{% include 'mailings/header.html' %}
+<h2>Профиль пользователя</h2>
+<div class="container mt-5">
+    <div class="profile-details" style="text-align: left; margin-left: 20px;">
+                <p><strong>Аватар:</strong></p>
+        {% if object.avatar %}
+            <img src="{{ object.avatar.url }}" alt="Аватар" style="max-width:200px;">
+        {% else %}
+            <p>Нет аватара</p>
+        {% endif %}
+        <p><strong>Email:</strong> {{object.email}}</p>
+        <p><strong>Имя:</strong> {{object.first_name}}</p>
+        <p><strong>Фамилия:</strong> {{object.last_name}}</p>
+        <p><strong>Телефон:</strong> {{object.phone}}</p>
+        <p><strong>Страна:</strong> {{object.country}}</p>
+    </div>
+</div>
+<div class="profile-actions mt-5" style="margin-top:20px;">
+    <a href="{% url 'users:user_update' %}" class="btn btn-primary">Редактировать профиль</a>
+    <a href="#" class="btn btn-primary">Удалить профиль</a>
+</div>
+
+<a href="/" class="btn btn-primary" style="margin-top:20px;">Вернуться назад</a>
+
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'mailings/base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+{% include 'mailings/header.html' %}
+
+<div class="container">
+    <h1 style="margin-bottom: 50px;">Добро пожаловать в сервис рассылок</h1>
+    <div>
+        <h2 style="margin-bottom: 50px;">Статистика</h2>
+        <div style="margin-left: 0; list-style-position: inside;">
+            <ul style="margin-left: 0; list-style-position: inside;">
+                <li>Количество рассылок: {{ total_mailings }}</li>
+                <li>Активных рассылок: {{ active_mailings }}</li>
+                <li>Количество получателей: {{ total_recipients }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
